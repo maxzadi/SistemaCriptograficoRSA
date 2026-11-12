@@ -39,7 +39,7 @@ class Mensaje:
         phi = (p - 1) * (q - 1)
 
         if not 126126 < n < 1000000:
-            raise ValueError("n debe cumplir: 126126 < n < 1000000.")
+            raise ValueError("n = pq debe cumplir: 126126 < n < 1000000.")
 
         if e <= 1:
             raise ValueError("e debe ser mayor que 1.")

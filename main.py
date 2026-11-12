@@ -72,6 +72,25 @@ def pasar_a_desencriptacion():
 
     st.session_state.resultado_descifrado = None
     st.session_state.vista = "Desencriptar"
+    
+def pasar_a_encriptacion():
+    """Transfiere los datos de desencriptacion a encriptacion."""
+
+    resultado = st.session_state.resultado_descifrado
+
+    if resultado is None:
+        return
+
+    p, q, e = resultado["parametros"]
+
+    st.session_state.p = str(p)
+    st.session_state.q = str(q)
+    st.session_state.e = str(e)
+
+    st.session_state.mensaje = resultado["mensaje"]
+
+    st.session_state.resultado_cifrado = None
+    st.session_state.vista = "Encriptar"
 
 
 def leer_parametros():
@@ -428,6 +447,7 @@ else:
                 "cifrado": rsa.C,
                 "datos": datos,
                 "bloques": datos["Bloques del mensaje"].split(),
+                "parametros": (p, q, e)
             }
 
         except (ValueError, TypeError, OverflowError) as error:
@@ -487,6 +507,12 @@ else:
             resultado["bloques"],
             "Desencriptar",
         )
+        
+        st.button(
+                    "➡️ Pasar estos datos a encriptacion",
+                    use_container_width=True,
+                    on_click=pasar_a_encriptacion,
+                )
 
 
 # ---------------------------------------------------------
@@ -496,6 +522,6 @@ else:
 st.divider()
 
 st.caption(
-    "Proyecto RSA · Matemática Discreta I · "
+    "Proyecto RSA · Matemática Discreta · "
     "Implementacion matematica en Python"
 )
