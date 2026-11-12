@@ -51,6 +51,18 @@ def limpiar_ambos():
     """Limpia resultados si cambian los parametros RSA."""
     limpiar_cifrado()
     limpiar_descifrado()
+    
+def cargar_ejemplo():
+    """Carga los valores del ejemplo oficial del proyecto."""
+
+    st.session_state.p = "367"
+    st.session_state.q = "373"
+    st.session_state.e = "17"
+    st.session_state.mensaje = "RSA"
+
+    st.session_state.vista = "Encriptar"
+
+    limpiar_ambos()
 
 
 def pasar_a_desencriptacion():
@@ -200,6 +212,12 @@ st.info(
 # ---------------------------------------------------------
 
 st.subheader("Paso 1. Parámetros RSA")
+
+st.button(
+    "📋 Cargar ejemplo RSA",
+    on_click=cargar_ejemplo,
+    help="Completa automáticamente los campos con el ejemplo oficial del proyecto."
+)
 
 col_p, col_q, col_e = st.columns(3)
 
@@ -377,7 +395,7 @@ else:
     st.text_input(
         "Mensaje cifrado C",
         key="cifrado_entrada",
-        placeholder="Ejemplo: 123456 789012 345678",
+        placeholder="Ejemplo: 026054 123875",
         help=(
             "Cada bloque debe tener exactamente seis digitos "
             "y estar separado por un solo espacio."
