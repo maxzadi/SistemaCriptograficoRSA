@@ -1,8 +1,8 @@
 # Sistema Criptográfico RSA
 
-**Universidad del Valle de Guatemala**  
-**Curso:** MM2015 - Matemática Discreta 1  
-**Proyecto:** Encriptación y desencriptación RSA
+**Universidad del Valle de Guatemala**
+**Curso:** MM2015 - Matemática Discreta 1
+**Proyecto:** Encriptación y desencriptación mediante RSA
 
 ## 1. Descripción del proyecto
 
@@ -15,7 +15,6 @@ El programa permite consultar los resultados de cada operación, los parámetros
 - Matías Maximiliano Zamora Díaz 25760
 - Daniel Alejandro Leal Sáenz 25682
 
-
 **Grupo:** 10
 
 ## 3. Requisitos
@@ -24,7 +23,7 @@ Para ejecutar el programa se necesita:
 
 - Python 3.10 o superior.
 - Un navegador web.
-- La biblioteca Streamlit, incluida en `requirements.txt`.
+- La biblioteca Streamlit, declarada en `requirements.txt`.
 
 La aplicación se ejecuta localmente y no requiere conexión a Internet después de instalar las dependencias.
 
@@ -32,9 +31,9 @@ La aplicación se ejecuta localmente y no requiere conexión a Internet después
 
 **Paso 1.** Extraer el archivo ZIP del proyecto en una carpeta de la computadora.
 
-**Paso 2.** Abrir una terminal dentro de la carpeta extraída, donde se encuentra `main.py`.
+**Paso 2.** Abrir una terminal dentro de la carpeta extraída, donde se encuentra el archivo `main.py`.
 
-**Paso 3.** Instalar las dependencias necesarias:
+**Paso 3.** Instalar las dependencias:
 
 ```bash
 python -m pip install -r requirements.txt
@@ -46,7 +45,7 @@ python -m pip install -r requirements.txt
 python -m streamlit run main.py
 ```
 
-La interfaz se abrirá automáticamente en el navegador web. Si no ocurre, ingresar a la dirección que aparece en la terminal, normalmente `http://localhost:8501`.
+La aplicación se abrirá automáticamente en el navegador web. Si no ocurre, ingresar a la dirección local que aparece en la terminal, normalmente `http://localhost:8501`.
 
 Para detener la aplicación, presionar `Ctrl + C` en la terminal.
 
@@ -71,24 +70,37 @@ Para detener la aplicación, presionar `Ctrl + C` en la terminal.
 
 La aplicación también incluye el botón **Pasar estos datos a desencriptación**, que transfiere automáticamente el mensaje cifrado, la longitud original y los parámetros RSA después de una encriptación exitosa.
 
+### 5.3. Cargar ejemplo RSA
+
+La aplicación incluye el botón **Cargar ejemplo RSA**, que completa automáticamente los campos con los siguientes valores:
+
+- p = 367
+- q = 373
+- e = 17
+- Mensaje = RSA
+
+Después de cargar los valores, presionar **Encriptar mensaje** para ejecutar la operación.
+
+Este botón facilita la comprobación del funcionamiento del programa. También es posible introducir otros valores que cumplan las condiciones matemáticas establecidas.
+
 ## 6. Ejemplo de funcionamiento
 
 Se utiliza el ejemplo de referencia proporcionado en las instrucciones del proyecto.
 
-| Dato | Valor |
-|---|---|
-| Mensaje original | `RSA` |
-| Número primo p | 367 |
-| Número primo q | 373 |
-| Exponente público e | 17 |
-| Módulo n | 136891 |
-| Función φ(n) | 136152 |
-| Longitud original L | 3 |
-| Bloques numéricos | `082083 065032` |
-| Mensaje cifrado C | `026054 123875` |
-| Llave pública (e, n) | `(17, 136891)` |
-| Exponente privado d | 8009 |
-| Mensaje recuperado | `RSA` |
+| Dato                 | Valor           |
+| -------------------- | --------------- |
+| Mensaje original     | `RSA`           |
+| Número primo p       | 367             |
+| Número primo q       | 373             |
+| Exponente público e  | 17              |
+| Módulo n             | 136891          |
+| Función φ(n)         | 136152          |
+| Longitud original L  | 3               |
+| Bloques numéricos    | `082083 065032` |
+| Mensaje cifrado C    | `026054 123875` |
+| Llave pública (e, n) | `(17, 136891)`  |
+| Exponente privado d  | 8009            |
+| Mensaje recuperado   | `RSA`           |
 
 ### Funcionamiento del relleno
 
@@ -143,9 +155,19 @@ Contiene la interfaz gráfica desarrollada con Streamlit, que permite ingresar l
 
 **`consola.py`**
 
-Contiene funciones de ejecución y pruebas desde la consola.
+Permite ejecutar desde la terminal una demostración de encriptación y desencriptación utilizando el ejemplo oficial del proyecto.
 
-Los algoritmos matemáticos RSA se implementan en Python sin utilizar bibliotecas externas de criptografía.
+Para ejecutarlo:
+
+```bash
+python consola.py
+```
+
+**`test_rsa.py`**
+
+Contiene las pruebas automáticas de los algoritmos RSA y las validaciones del programa, implementadas mediante la biblioteca estándar `unittest` de Python.
+
+Los algoritmos matemáticos RSA están implementados directamente en Python, sin utilizar bibliotecas externas de criptografía.
 
 ## 9. Estructura del proyecto
 
@@ -155,6 +177,7 @@ SistemaCriptograficoRSA/
 ├── encriptacion.py
 ├── recursos.py
 ├── consola.py
+├── test_rsa.py
 ├── requirements.txt
 └── README.md
 ```
@@ -162,7 +185,8 @@ SistemaCriptograficoRSA/
 - `main.py`: archivo principal de la aplicación.
 - `encriptacion.py`: lógica de encriptación y desencriptación RSA.
 - `recursos.py`: algoritmos matemáticos auxiliares.
-- `consola.py`: ejecución y pruebas desde consola.
+- `consola.py`: demostración desde consola.
+- `test_rsa.py`: pruebas automáticas.
 - `requirements.txt`: dependencias externas.
 - `README.md`: documentación e instrucciones de uso.
 
@@ -178,13 +202,46 @@ Se realizaron pruebas para verificar:
 - Rechazo de exponentes públicos inválidos.
 - Rechazo de caracteres no admitidos.
 - Rechazo de bloques cifrados mal formados.
+- Rechazo de valores cifrados fuera del rango permitido.
 - Rechazo de longitudes inconsistentes.
+- Validación de caracteres ASCII recuperados.
+- Comprobación del espacio de relleno.
 - Manejo de errores sin cierre inesperado de la aplicación.
 
-Estas comprobaciones permiten evaluar el funcionamiento del sistema y la recuperación exacta del mensaje original.
+### 10.1. Pruebas automáticas
+
+El proyecto incluye el archivo `test_rsa.py`, que utiliza `unittest`.
+
+Para ejecutar las pruebas, abrir una terminal en la carpeta del proyecto e ingresar:
+
+```bash
+python -m unittest -v test_rsa.py
+```
+
+El archivo contiene ocho pruebas automatizadas que comprueban:
+
+1. El funcionamiento de los algoritmos matemáticos.
+2. El rechazo de caracteres ASCII inválidos durante la desencriptación.
+3. El rechazo de caracteres no permitidos.
+4. La validación de bloques cifrados y longitudes.
+5. El ejemplo oficial del proyecto.
+6. La recuperación exacta de mensajes válidos.
+7. El rechazo de parámetros RSA inválidos.
+8. La comprobación del relleno durante la desencriptación.
+
+**Resultado obtenido:**
+
+```text
+Ran 8 tests
+
+OK
+```
+
+Las ocho pruebas se ejecutaron correctamente, sin errores.
 
 ## 11. Dependencias
 
-Las dependencias externas necesarias para ejecutar la aplicación están especificadas en el archivo `requirements.txt`.
+Las dependencias externas necesarias para ejecutar la aplicación están especificadas en `requirements.txt`.
 
 La interfaz utiliza Streamlit, mientras que los algoritmos matemáticos RSA están implementados directamente en Python.
+
