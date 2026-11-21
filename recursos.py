@@ -42,10 +42,21 @@ def inverso_modular(n, m):
 
     return x % m
     
-def exponenciacion_modular(n,e,m):
-    if e==0:return 1%m
-    if e==1:return n%m
-    if e%2==0:
-        return (exponenciacion_modular(n,(e)//2,m)**2)%m
-    else:
-        return (n*exponenciacion_modular(n,(e)//2,m)**2)%m
+def exponenciacion_modular(n, e, m):
+    """Calcula n elevado a e modulo m mediante cuadrados sucesivos."""
+    if e < 0:
+        raise ValueError("El exponente debe ser no negativo.")
+    if m <= 0:
+        raise ValueError("El módulo debe ser mayor que cero.")
+
+    resultado = 1 % m
+    base = n % m
+
+    # Un ciclo evita el límite de recursión para exponentes grandes.
+    while e > 0:
+        if e % 2 == 1:
+            resultado = (resultado * base) % m
+        base = (base * base) % m
+        e //= 2
+
+    return resultado

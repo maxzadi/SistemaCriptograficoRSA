@@ -29,17 +29,21 @@ class Mensaje:
             if type(valor) is not int:
                 raise ValueError(f"{nombre} debe ser un entero.")
 
+        if p < 2 or q < 2:
+            raise ValueError("p y q deben ser números primos.")
+
+        # Rechazar modulos fuera de rango antes de buscar divisores.
+        n = p * q
+        if not 126126 < n < 1000000:
+            raise ValueError("n = pq debe cumplir: 126126 < n < 1000000.")
+
         if not es_primo(p) or not es_primo(q):
             raise ValueError("p y q deben ser números primos.")
 
         if p == q:
             raise ValueError("p y q deben ser distintos.")
 
-        n = p * q
         phi = (p - 1) * (q - 1)
-
-        if not 126126 < n < 1000000:
-            raise ValueError("n = pq debe cumplir: 126126 < n < 1000000.")
 
         if e <= 1:
             raise ValueError("e debe ser mayor que 1.")

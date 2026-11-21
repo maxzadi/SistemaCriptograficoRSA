@@ -143,7 +143,7 @@ Contiene los algoritmos matemáticos auxiliares utilizados para el funcionamient
 - Cálculo del máximo común divisor mediante el algoritmo de Euclides.
 - Algoritmo extendido de Euclides.
 - Cálculo del inverso modular.
-- Exponenciación modular.
+- Exponenciación modular iterativa mediante cuadrados sucesivos, sin límite de recursión para exponentes grandes.
 
 **`encriptacion.py`**
 
@@ -179,6 +179,7 @@ SistemaCriptograficoRSA/
 ├── consola.py
 ├── test_rsa.py
 ├── requirements.txt
+├── LINK_VIDEO.txt
 └── README.md
 ```
 
@@ -188,6 +189,7 @@ SistemaCriptograficoRSA/
 - `consola.py`: demostración desde consola.
 - `test_rsa.py`: pruebas automáticas.
 - `requirements.txt`: dependencias externas.
+- `LINK_VIDEO.txt`: enlace al video demostrativo.
 - `README.md`: documentación e instrucciones de uso.
 
 ## 10. Pruebas de funcionamiento
@@ -218,7 +220,7 @@ Para ejecutar las pruebas, abrir una terminal en la carpeta del proyecto e ingre
 python -m unittest -v test_rsa.py
 ```
 
-El archivo contiene ocho pruebas automatizadas que comprueban:
+El archivo contiene once pruebas automatizadas que comprueban:
 
 1. El funcionamiento de los algoritmos matemáticos.
 2. El rechazo de caracteres ASCII inválidos durante la desencriptación.
@@ -228,20 +230,29 @@ El archivo contiene ocho pruebas automatizadas que comprueban:
 6. La recuperación exacta de mensajes válidos.
 7. El rechazo de parámetros RSA inválidos.
 8. La comprobación del relleno durante la desencriptación.
+9. La encriptación y recuperación con un exponente válido de 1118 bits, mayor que φ.
+10. Los casos límite de la potencia modular y el rechazo de exponentes negativos o módulos no positivos.
+11. El rechazo de un módulo fuera de rango antes de realizar una búsqueda de divisores costosa.
 
 **Resultado obtenido:**
 
 ```text
-Ran 8 tests
+Ran 11 tests
 
 OK
 ```
 
-Las ocho pruebas se ejecutaron correctamente, sin errores.
+Las once pruebas se ejecutaron correctamente, sin errores.
 
 ## 11. Dependencias
 
 Las dependencias externas necesarias para ejecutar la aplicación están especificadas en `requirements.txt`.
 
 La interfaz utiliza Streamlit, mientras que los algoritmos matemáticos RSA están implementados directamente en Python.
+
+## 12. Video demostrativo
+
+El enlace del video se encuentra en `LINK_VIDEO.txt`.
+
+
 

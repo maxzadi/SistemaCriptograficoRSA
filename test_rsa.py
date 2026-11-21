@@ -44,6 +44,35 @@ class PruebasRSA(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     Mensaje('RSA', p, q, e)
 
+    def test_exponente_grande(self):
+        # Es coprimo con phi, pero antes excedía el límite de recursión.
+        e = (P - 1) * (Q - 1) * (2 ** 1100) + E
+        for texto in ['RSA', '  A  b9!?  ', 'AB', 'A ']:
+            with self.subTest(texto=repr(texto)):
+                esperado, _, _ = Mensaje(texto, P, Q, E).encriptar()
+                cifrado, longitud, llave = Mensaje(texto, P, Q, e).encriptar()
+                self.assertEqual(cifrado, esperado)
+                self.assertEqual(llave, (e, P * Q))
+                d, recuperado = Mensaje(cifrado, P, Q, e, False, longitud).desencriptar()
+                self.assertEqual(recuperado, texto)
+                self.assertEqual(d, 8009)
+
+    def test_exponenciacion_limites(self):
+        self.assertEqual(exponenciacion_modular(7, 0, 19), 1)
+        self.assertEqual(exponenciacion_modular(7, 0, 1), 0)
+        self.assertEqual(exponenciacion_modular(2, 10, 1000), 24)
+        self.assertEqual(exponenciacion_modular(0, 3, 19), 0)
+        self.assertEqual(exponenciacion_modular(7, 1, 5), 2)
+        for n, e, m in [(2, -1, 5), (2, 3, 0), (2, 3, -5)]:
+            with self.subTest(n=n, e=e, m=m):
+                with self.assertRaises(ValueError):
+                    exponenciacion_modular(n, e, m)
+
+    def test_modulo_fuera_rango_grande(self):
+        # No debe intentar una búsqueda de divisores de este primo enorme.
+        with self.assertRaisesRegex(ValueError, 'n = pq'):
+            Mensaje('RSA', 2 ** 127 - 1, Q, E)
+
     def test_caracteres_invalidos(self):
         for texto in ['á', 'ñ', 'A\nB', 'A\tB', '🙂']:
             with self.subTest(texto=repr(texto)):
