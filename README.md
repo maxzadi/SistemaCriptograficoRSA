@@ -1,14 +1,10 @@
 # Sistema Criptográfico RSA
 
-## 🌐 Aplicación en línea
+## Aplicación en línea
 
 ### [Abrir y ejecutar el Sistema Criptográfico RSA](https://sistemacriptograficorsa-ttykdkvumpairiacfx69jv.streamlit.app/)
 
-La aplicación puede utilizarse directamente desde el navegador, sin instalar Python ni descargar el proyecto.
-
-**Universidad del Valle de Guatemala**
-**Curso:** MM2015 - Matemática Discreta 1
-**Proyecto:** Encriptación y desencriptación mediante RSA
+Link de acceso directo a la prueba de la aplicación desarrollada.
 
 ## 1. Descripción del proyecto
 
